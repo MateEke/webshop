@@ -12,6 +12,8 @@ AC02.a: When product is added to cart its available amount should be decremented
 AC03: Cart page displays the products added to the cart: total amount currently added, total price.
 ```
 
+**NOTE:** The following instructions are based on the assumption that you have `@angular/cli` installed globally.
+
 ## Development server
 
 To start a local development server, run:
@@ -43,6 +45,12 @@ ng test
 ## Running end-to-end tests
 
 The project is configured to use Playwright to run e2e tests.
+
+At the first run playwright needs to install browsers:
+
+```bash
+npx playwright install
+```
 
 For end-to-end (e2e) testing, run:
 
