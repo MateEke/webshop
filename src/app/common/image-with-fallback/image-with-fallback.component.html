@@ -1,0 +1,9 @@
+<div class="relative h-full w-full">
+  <img
+    [ngSrc]="computedImageUrl()"
+    alt="{{ altText() }}"
+    fill
+    class="object-contain"
+    (error)="imageError.set(true)"
+  />
+</div>

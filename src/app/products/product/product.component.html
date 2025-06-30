@@ -1,0 +1,47 @@
+<div class="w-full border-1 border-gray-200 shadow-lg">
+  <app-image-with-fallback
+    [imageUrl]="product().img"
+    [altText]="product().name"
+    class="block h-40"
+  />
+
+  <div class="p-2">
+    <h2 class="truncate text-lg">{{ product().name }}</h2>
+    <p class="font-semibold text-blue-600">{{ product().price | currency }}</p>
+    <p class="text-sm text-gray-600" data-testid="product-stock">
+      Stock: {{ computedStock() }}
+    </p>
+    <div class="mt-2 flex items-center justify-between">
+      <span>Add to cart:</span>
+      <input
+        type="number"
+        [id]="'input-' + product()._id"
+        [min]="product().minOrderAmount"
+        [max]="product().availableAmount"
+        [(ngModel)]="inputValue"
+        [ngModelOptions]="{ updateOn: 'blur' }"
+        (ngModelChange)="updateCart()"
+        class="mt-2 w-1/3 border border-gray-300 p-1"
+        #cartQuantityInput="ngModel"
+      />
+    </div>
+    @if (
+      cartQuantityInput.invalid &&
+      inputValue() &&
+      (cartQuantityInput.dirty || cartQuantityInput.touched)
+    ) {
+      <span class="text-sm text-red-500" data-testid="product-error-message">
+        {{
+          cartQuantityInput.hasError("min")
+            ? "Minimum order amount is " + product().minOrderAmount
+            : ""
+        }}
+        {{
+          cartQuantityInput.hasError("max")
+            ? "Available amount is " + product().availableAmount
+            : ""
+        }}
+      </span>
+    }
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<a
+  routerLink="/cart"
+  class="flex items-center gap-2 rounded-xl bg-blue-800 p-3 hover:bg-blue-900"
+>
+  <span class="material-symbols-outlined text-white"> shopping_basket </span>
+  <span class="font-bold text-white" data-testid="header-cart-value">{{
+    cartValue$ | async | currency
+  }}</span>
+</a>

@@ -1,0 +1,45 @@
+@let products = products$ | async | orderBy: orderBy() : orderByDirection();
+
+<div class="mt-4 mb-4 flex items-center justify-between sm:mt-6 sm:mb-6">
+  <h1 class="text-2xl font-semibold">Products</h1>
+  <div class="flex space-x-2">
+    <button
+      (click)="changeOrderBy('name')"
+      class="flex cursor-pointer items-center space-x-1 rounded bg-blue-500 px-2 py-1 text-white hover:bg-blue-600"
+    >
+      <span class="text-lg font-bold">AZ</span>
+      @if (orderBy() === "name") {
+        <span class="material-symbols-outlined">
+          {{ orderByDirection() === "asc" ? "arrow_upward" : "arrow_downward" }}
+        </span>
+      } @else {
+        <span class="material-symbols-outlined">swap_vert</span>
+      }
+    </button>
+    <button
+      (click)="changeOrderBy('price')"
+      class="flex cursor-pointer items-center space-x-1 rounded bg-blue-500 px-2 py-1 text-white hover:bg-blue-600"
+    >
+      <span class="text-lg font-bold">€</span>
+      @if (orderBy() === "price") {
+        <span class="material-symbols-outlined">
+          {{ orderByDirection() === "asc" ? "arrow_upward" : "arrow_downward" }}
+        </span>
+      } @else {
+        <span class="material-symbols-outlined">swap_vert</span>
+      }
+    </button>
+  </div>
+</div>
+
+<div class="mt-4 grid w-full grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+  @if (!products?.length) {
+    <p class="text-gray-500" data-testid="no-product-message">
+      No products available.
+    </p>
+  } @else {
+    @for (product of products; track product._id) {
+      <app-product [product]="product" />
+    }
+  }
+</div>

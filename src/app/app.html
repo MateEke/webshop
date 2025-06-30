@@ -1,0 +1,31 @@
+<header
+  class="fixed z-1 flex h-25 w-full justify-center border-t-6 border-blue-800 bg-blue-400 px-6 align-middle"
+>
+  <nav class="grid w-full max-w-6xl grid-cols-2 items-center sm:grid-cols-3">
+    <a class="w-20 border-6 border-yellow-500 bg-blue-800 p-3" routerLink="/">
+      <img src="logo.svg" alt="Webshop Logo" />
+    </a>
+    <h1
+      class="hidden justify-self-center text-2xl font-bold text-white sm:block"
+    >
+      WebShop
+    </h1>
+    <app-header-cart class="justify-self-end" />
+  </nav>
+</header>
+<main class="flex justify-center px-6 pt-25 pb-5 align-middle sm:pb-24">
+  <div class="flex w-full max-w-6xl">
+    <router-outlet />
+  </div>
+</main>
+<footer class="fixed bottom-0 hidden w-full bg-white p-2 sm:flex">
+  <a
+    href="https://github.com/MateEke/webshop"
+    title="Source code"
+    class="ml-auto flex items-center gap-2 sm:text-lg"
+    target="_blank"
+  >
+    <span class="material-symbols-outlined sm:text-3xl!"> code_blocks </span
+    >GitHub Repository
+  </a>
+</footer>

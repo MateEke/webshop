@@ -1,0 +1,30 @@
+kind: pipeline
+name: default
+type: docker
+
+steps:
+  - name: build
+    image: node:22
+    commands:
+      - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+      - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      - apt-get update
+      - apt-get install -yq google-chrome-unstable libgconf-2-4 zip curl --no-install-recommends
+      - npm ci --no-progress --silent
+      - npm run pipeline-test
+      - npm run prod-build
+
+  - name: docker
+    image: plugins/docker
+    privileged: true
+    settings:
+      username:
+        from_secret: registry_user
+      password:
+        from_secret: registry_pass
+      repo: registry.ekemate.hu/webshop
+      registry: registry.ekemate.hu
+      tags: latest
+    when:
+      branch:
+        - master
