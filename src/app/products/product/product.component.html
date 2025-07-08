@@ -16,28 +16,23 @@
       <input
         type="number"
         [id]="'input-' + product()._id"
-        [min]="product().minOrderAmount"
-        [max]="product().availableAmount"
-        [(ngModel)]="inputValue"
-        [ngModelOptions]="{ updateOn: 'blur' }"
-        (ngModelChange)="updateCart()"
+        [formControl]="inputControl"
         class="mt-2 w-1/3 border border-gray-300 p-1"
-        #cartQuantityInput="ngModel"
       />
     </div>
     @if (
-      cartQuantityInput.invalid &&
+      inputControl.invalid &&
       inputValue() &&
-      (cartQuantityInput.dirty || cartQuantityInput.touched)
+      (inputControl.dirty || inputControl.touched)
     ) {
       <span class="text-sm text-red-500" data-testid="product-error-message">
         {{
-          cartQuantityInput.hasError("min")
+          inputControl.hasError("min")
             ? "Minimum order amount is " + product().minOrderAmount
             : ""
         }}
         {{
-          cartQuantityInput.hasError("max")
+          inputControl.hasError("max")
             ? "Available amount is " + product().availableAmount
             : ""
         }}
